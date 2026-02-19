@@ -1,5 +1,6 @@
+export type TxStatusAwaitingSignature = 'awaiting_signature';
 export type TxStatus =
-  | "awaiting_signature"
+  | TxStatusAwaitingSignature
   | "pending"
   | "confirmed"
   | "failed"
@@ -12,7 +13,7 @@ export type Tx = {
   hash?: string
   nonce?: number
 
-  chainId: number
+  chainId: bigint
   from: string
   to?: string
   value?: string
