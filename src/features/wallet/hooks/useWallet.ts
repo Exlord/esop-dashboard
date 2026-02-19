@@ -4,11 +4,14 @@ This hook:
 is event-driven
 is reactive
 syncs global state
+
+
 */
 
 import { useEffect } from 'react';
 import { WalletService } from '@/services/wallet.service';
 import { useWalletStore } from '@/store/wallet.store';
+import { providerService } from "@/services/provider.service"
 
 const walletService = new WalletService();
 
@@ -25,12 +28,16 @@ export function useWallet() {
 
   const connect = async () => {
     try {
-      setConnecting(true);
+      setConnecting(true)
 
       const { address, chainId } =
-        await walletService.connect();
+        await walletService.connect()
 
-      setWallet({ address, chainId });
+      providerService.setWalletProvider(
+        (window as any).ethereum
+      )
+
+      setWallet({ address, chainId })
     } catch (err) {
       reset();
       throw err;
