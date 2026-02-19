@@ -1,4 +1,5 @@
 import { TxList } from '@/features/tx/components/TxList';
+import { ConnectButton } from '@/features/wallet/components/ConnectButton';
 
 export default function HomePage() {
   return (
@@ -7,7 +8,17 @@ export default function HomePage() {
         ESOP Dashboard
       </h1>
 
-      <TxList />
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="p-4 bg-white rounded-xl shadow">
+          Token Overview
+
+          <ConnectButton />
+        </div>
+
+        <div className="p-4 bg-white rounded-xl shadow">
+          <TxList />
+        </div>
+      </div>
     </main>
   );
 }
