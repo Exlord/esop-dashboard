@@ -1,3 +1,5 @@
+import { TxList } from '@/features/tx/components/TxList';
+
 export default function HomePage() {
   return (
     <main className="p-6 space-y-6">
@@ -5,15 +7,7 @@ export default function HomePage() {
         ESOP Dashboard
       </h1>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="p-4 bg-white rounded-xl shadow">
-          Token Overview
-        </div>
-
-        <div className="p-4 bg-white rounded-xl shadow">
-          Transactions
-        </div>
-      </div>
+      <TxList />
     </main>
-  )
+  );
 }
