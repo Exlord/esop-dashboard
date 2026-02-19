@@ -1,5 +1,6 @@
 import { TxList } from '@/features/tx/components/TxList';
 import { ConnectButton } from '@/features/wallet/components/ConnectButton';
+import { NetworkWarning } from '@/features/wallet/components/NetworkWarning';
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
         <div className="p-4 bg-white rounded-xl shadow">
           Token Overview
 
+          <NetworkWarning />
           <ConnectButton />
         </div>
 

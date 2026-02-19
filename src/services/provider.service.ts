@@ -15,6 +15,7 @@ can break UX
 */
 
 import { JsonRpcProvider, BrowserProvider } from 'ethers';
+import { DEFAULT_CHAIN } from '@/config/chains';
 
 class ProviderService {
   private readProvider: JsonRpcProvider;
@@ -25,7 +26,7 @@ class ProviderService {
     // Polygon RPC
     // TODO do we need multichain ?
     this.readProvider = new JsonRpcProvider(
-      'https://polygon-rpc.com'
+      DEFAULT_CHAIN.rpcUrl
     );
   }
 

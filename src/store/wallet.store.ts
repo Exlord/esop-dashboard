@@ -5,23 +5,28 @@ We keep wallet state minimal and deterministic
 No provider, no signer here — just data.
 */
 
-import { create } from "zustand"
+import { create } from 'zustand';
+import { DEFAULT_CHAIN } from "@/config/chains"
 
 type WalletStore = {
-  address: string | null
-  chainId: number | null
+  address: string | null,
+  chainId: number | null,
 
-  isConnected: boolean
-  isConnecting: boolean
+  isConnected: boolean,
+  isConnecting: boolean,
+
+  isCorrectNetwork: boolean,
 
   setWallet: (data: {
-    address: string
-    chainId: number
-  }) => void
+    address: string,
+    chainId: number,
+  }) => void,
 
-  reset: () => void
+  setChain: (chainId: number) => void,
 
-  setConnecting: (value: boolean) => void
+  reset: () => void,
+
+  setConnecting: (value: boolean) => void,
 }
 
 export const useWalletStore = create<WalletStore>((set) => ({
@@ -31,26 +36,35 @@ export const useWalletStore = create<WalletStore>((set) => ({
   isConnected: false,
   isConnecting: false,
 
+  isCorrectNetwork: false,
+
   setWallet: ({ address, chainId }) =>
     set({
       address,
       chainId,
       isConnected: true,
       isConnecting: false,
+      isCorrectNetwork: chainId === DEFAULT_CHAIN.id,
     }),
+
+  setChain: (chainId) =>
+    set((state) => ({
+      chainId,
+      isCorrectNetwork: chainId === DEFAULT_CHAIN.id,
+    })),
 
   reset: () =>
     set({
       address: null,
       chainId: null,
       isConnected: false,
-      isConnecting: false,
+      isConnecting: false
     }),
 
   setConnecting: (value) =>
     set({
-      isConnecting: value,
-    }),
-}))
+      isConnecting: value
+    })
+}));
 
 

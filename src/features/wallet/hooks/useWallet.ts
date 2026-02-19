@@ -23,7 +23,8 @@ export function useWallet() {
     isConnecting,
     setWallet,
     reset,
-    setConnecting
+    setConnecting,
+    setChain
   } = useWalletStore();
 
   const connect = async () => {
@@ -60,13 +61,10 @@ export function useWallet() {
     });
 
     walletService.onChainChanged((chainIdHex) => {
-      const newChainId = parseInt(chainIdHex, 16);
+      const newChainId = parseInt(chainIdHex, 16)
 
-      setWallet({
-        address: address!,
-        chainId: newChainId
-      });
-    });
+      setChain(newChainId)
+    })
   }, [address, chainId]);
 
   return {

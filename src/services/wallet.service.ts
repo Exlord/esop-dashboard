@@ -2,6 +2,8 @@
 This is the only place we work with window.ethereum.
 */
 
+import { DEFAULT_CHAIN } from '@/config/chains';
+
 export class WalletService {
   private ethereum?: any;
 
@@ -64,4 +66,9 @@ export class WalletService {
       params: [{ chainId: chainIdHex }]
     });
   }
+
+  async switchToDefaultChain() {
+    return this.switchChain(DEFAULT_CHAIN.hex)
+  }
+
 }
