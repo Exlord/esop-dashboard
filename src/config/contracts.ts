@@ -9,7 +9,6 @@ export const TOKEN_ABI = [
   }
 ] as const;
 
-//: { [key: string]: { address: { [chainId: number]: string }, abi: any } }
 export const CONTRACTS = {
   TOKEN: {
     address: {

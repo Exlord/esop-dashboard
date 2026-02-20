@@ -23,7 +23,7 @@ export class TxManager {
       from: string
       to?: string
       value?: string
-      chainId: number
+      chainId: SupportedChainId
     }
   }) {
     const id = uuid();

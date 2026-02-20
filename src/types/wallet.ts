@@ -1,6 +1,6 @@
 export type WalletState = {
   address: string | null
-  chainId: number | null
+  chainId: SupportedChainId | null
   isConnected: boolean
   isConnecting: boolean
 }

@@ -7,10 +7,11 @@ No provider, no signer here — just data.
 
 import { create } from 'zustand';
 import { DEFAULT_CHAIN } from '@/config/chains';
+import { SupportedChainId } from '@/types/chain';
 
 type WalletStore = {
   address: string | null,
-  chainId: number | null,
+  chainId: SupportedChainId | null,
 
   isConnected: boolean,
   isConnecting: boolean,
@@ -19,10 +20,10 @@ type WalletStore = {
 
   setWallet: (data: {
     address: string,
-    chainId: number,
+    chainId: SupportedChainId,
   }) => void,
 
-  setChain: (chainId: number) => void,
+  setChain: (chainId: SupportedChainId) => void,
 
   reset: () => void,
 
