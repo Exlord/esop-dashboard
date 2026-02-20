@@ -1,0 +1,2 @@
+export const TX_RECEIPT_STATUS_SUCCESS = 1;
+export const TX_RECEIPT_STATUS_REVERT = 0;

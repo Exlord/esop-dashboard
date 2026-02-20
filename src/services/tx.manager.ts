@@ -1,6 +1,7 @@
 import { providerService } from './provider.service';
 import { useTxStore } from '@/store/tx.store';
 import { v4 as uuid } from 'uuid';
+import { TX_RECEIPT_STATUS_SUCCESS } from '@/consts/tx';
 
 const STUCK_BLOCK_THRESHOLD = 30;
 
@@ -25,7 +26,7 @@ export class TxManager {
 
     const store = useTxStore.getState();
 
-    // 1️⃣ awaiting signature
+    // 1 awaiting signature
     store.addTx({
       id,
       status: 'awaiting_signature',
@@ -37,14 +38,14 @@ export class TxManager {
     try {
       const tx = await fn();
 
-      // 2️⃣ pending
+      // 2 pending
       store.updateTx(id, {
         hash: tx.hash,
         nonce: tx.nonce,
         status: 'pending'
       });
 
-      // 3️⃣ start tracking
+      // 3 start tracking
       this.ensureBlockListener();
 
       return tx;
@@ -57,7 +58,7 @@ export class TxManager {
     }
   }
 
-  // 🧠 BLOCK LISTENER (core engine)
+  // BLOCK LISTENER (core engine)
   private ensureBlockListener() {
     if (this.isListening) return;
 
@@ -75,7 +76,7 @@ export class TxManager {
           const receipt = await provider.getTransactionReceipt(tx.hash);
 
           if (receipt) {
-            if (receipt.status === 1) {
+            if (receipt.status === TX_RECEIPT_STATUS_SUCCESS) {
               store.setStatus(tx.id, 'confirmed');
             } else {
               store.setStatus(tx.id, 'failed');
@@ -83,12 +84,12 @@ export class TxManager {
             continue;
           }
 
-          // ⏱️ stuck detection
+          // stuck detection
           if (tx.startBlock && blockNumber - tx.startBlock > STUCK_BLOCK_THRESHOLD) {
             store.setStatus(tx.id, 'stuck');
           }
 
-          // 🔁 replacement detection
+          // replacement detection
           await this.detectReplacement(tx.id, tx.nonce!, tx.from);
 
         } catch (err) {

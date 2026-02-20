@@ -1,11 +1,10 @@
-export type TxStatusAwaitingSignature = 'awaiting_signature';
 export type TxStatus =
-  | TxStatusAwaitingSignature
-  | "pending"
-  | "confirmed"
-  | "failed"
-  | "replaced"
-  | "stuck"
+  | 'awaiting_signature'
+  | 'pending'
+  | 'confirmed'
+  | 'failed'
+  | 'replaced'
+  | 'stuck';
 
 export type Tx = {
   id: string
