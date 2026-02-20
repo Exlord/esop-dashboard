@@ -3,15 +3,15 @@ import { contractFactory } from '@/services/contract.factory';
 import { parseUnits } from 'ethers';
 
 export class TokenContract {
-  private chainId: number;
+  private chainId: bigint;
 
   private config = CONTRACTS.TOKEN;
 
-  constructor(chainId: number) {
+  constructor(chainId: bigint) {
     this.chainId = chainId;
   }
 
-  private get address() {
+  public get address() {
     const addr = CONTRACTS.TOKEN.address[this.chainId]
 
     if (!addr) {

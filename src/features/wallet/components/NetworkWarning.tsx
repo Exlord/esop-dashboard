@@ -1,8 +1,8 @@
 "use client"
 
 import { useWallet } from "../hooks/useWallet"
-import { useNetworkGuard } from "../hooks/useNetworkGuard"
 import { WalletService } from "@/services/wallet.service"
+import { useNetworkGuard } from '@/hooks/useNetworkGuard';
 
 const walletService = new WalletService()
 
