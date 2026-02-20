@@ -3,13 +3,14 @@ This is the only place we work with window.ethereum.
 */
 
 import { DEFAULT_CHAIN } from '@/config/chains';
+import { EthereumProvider } from '../../global';
 
 export class WalletService {
-  private ethereum?: any;
+  private ethereum?: EthereumProvider;
 
   constructor() {
     if (typeof window !== 'undefined') {
-      this.ethereum = (window as any).ethereum;
+      this.ethereum = window.ethereum;
     }
   }
 
@@ -37,7 +38,7 @@ export class WalletService {
   }
 
   async getCurrentAccount() {
-    const accounts = await this.ethereum.request({
+    const accounts = await this.ethereum?.request({
       method: 'eth_accounts'
     });
 
@@ -45,7 +46,7 @@ export class WalletService {
   }
 
   async getChainId() {
-    const chainId = await this.ethereum.request({
+    const chainId = await this.ethereum?.request({
       method: 'eth_chainId'
     });
 
@@ -61,7 +62,7 @@ export class WalletService {
   }
 
   async switchChain(chainIdHex: string) {
-    await this.ethereum.request({
+    await this.ethereum?.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: chainIdHex }]
     });
