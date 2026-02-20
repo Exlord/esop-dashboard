@@ -12,9 +12,12 @@ export default function HomePage() {
       <div className="grid gap-4 md:grid-cols-2">
         <div className="p-4 bg-white rounded-xl shadow">
           Token Overview
-
-          <NetworkWarning />
-          <ConnectButton />
+          <div>
+            <NetworkWarning />
+          </div>
+          <div>
+            <ConnectButton />
+          </div>
         </div>
 
         <div className="p-4 bg-white rounded-xl shadow">

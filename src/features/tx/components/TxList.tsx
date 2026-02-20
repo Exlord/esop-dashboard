@@ -1,17 +1,19 @@
 "use client"
 
-import { useAllTxs } from "@/store/tx.selectors"
+import { useTxMap } from '@/store/tx.selectors';
+import { useMemo } from 'react';
 
 export function TxList() {
-  const txs = useAllTxs()
+  const txMap = useTxMap()
+  const txList = useMemo(() => Object.values(txMap), [txMap])
 
-  if (!txs.length) {
+  if (!txList.length) {
     return <p>No transactions yet</p>
   }
 
   return (
     <div className="space-y-2">
-      {txs.map((tx) => (
+      {txList.map((tx) => (
         <div
           key={tx.id}
           className="p-3 bg-gray-100 rounded"
