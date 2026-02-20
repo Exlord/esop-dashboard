@@ -1,9 +1,9 @@
 import { providerService } from './provider.service';
 import { useTxStore } from '@/store/tx.store';
 import { v4 as uuid } from 'uuid';
-import { TX_RECEIPT_STATUS_SUCCESS } from '@/consts/tx';
+import { STUCK_BLOCK_THRESHOLD, TX_RECEIPT_STATUS_SUCCESS } from '@/consts/tx';
 
-const STUCK_BLOCK_THRESHOLD = 30;
+
 
 export class TxManager {
   private isListening = false;
@@ -23,8 +23,8 @@ export class TxManager {
   }) {
     const id = uuid();
     const now = Date.now();
-
     const store = useTxStore.getState();
+    const provider = providerService.getReadProvider();
 
     // 1 awaiting signature
     store.addTx({
@@ -38,11 +38,15 @@ export class TxManager {
     try {
       const tx = await fn();
 
-      // 2 pending
+      // get current block at submission time
+      const currentBlock = await provider.getBlockNumber();
+
+      // 2 pending + startBlock
       store.updateTx(id, {
         hash: tx.hash,
         nonce: tx.nonce,
-        status: 'pending'
+        status: 'pending',
+        startBlock: currentBlock
       });
 
       // 3 start tracking
@@ -87,6 +91,15 @@ export class TxManager {
           // stuck detection
           if (tx.startBlock && blockNumber - tx.startBlock > STUCK_BLOCK_THRESHOLD) {
             store.setStatus(tx.id, 'stuck');
+
+            // TODO Speed-up suggestion
+            // const blocksPending = currentBlock - tx.startBlock
+            // if (blocksPending > 10) → suggest higher gas
+
+            // TODO Auto-replacement UI
+            // “Speed up”
+            // “Cancel transaction”
+            // (both = same nonce, different gas)
           }
 
           // replacement detection

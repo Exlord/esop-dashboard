@@ -1,2 +1,3 @@
 export const TX_RECEIPT_STATUS_SUCCESS = 1;
 export const TX_RECEIPT_STATUS_REVERT = 0;
+export const STUCK_BLOCK_THRESHOLD = 30;
