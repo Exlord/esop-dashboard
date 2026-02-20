@@ -10,7 +10,7 @@ import { DEFAULT_CHAIN } from '@/config/chains';
 
 type WalletStore = {
   address: string | null,
-  chainId: bigint | null,
+  chainId: number | null,
 
   isConnected: boolean,
   isConnecting: boolean,
@@ -19,10 +19,10 @@ type WalletStore = {
 
   setWallet: (data: {
     address: string,
-    chainId: bigint,
+    chainId: number,
   }) => void,
 
-  setChain: (chainId: bigint) => void,
+  setChain: (chainId: number) => void,
 
   reset: () => void,
 

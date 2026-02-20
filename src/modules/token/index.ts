@@ -1,5 +1,18 @@
 import { TokenContract } from '@/modules/token/token.contract';
+import { SupportedChainId } from '@/types/chain';
 
-export const createTokenContract = (chainId: bigint) => {
-  return new TokenContract(chainId)
+/**
+ * I restrict chainId to a SupportedChainId union and validate it at runtime to ensure only supported networks are used
+ * @param chainId
+ */
+function assertSupportedChain(chainId: number): asserts chainId is SupportedChainId {
+  if (![1, 137].includes(chainId)) {
+    throw new Error(`Unsupported chain: ${chainId}`);
+  }
 }
+
+export const createTokenContract = (chainId: SupportedChainId) => {
+  // Runtime guard (VERY important)
+  assertSupportedChain(chainId);
+  return new TokenContract(chainId);
+};

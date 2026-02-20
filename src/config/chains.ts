@@ -10,7 +10,7 @@ import { Chain } from '@/types/chain';
 
 export const SUPPORTED_CHAINS: { [network: string]: Chain } = {
   POLYGON: {
-    id: 137n, // bigint is marked with n postfix
+    id: 137,
     name: 'Polygon',
     rpcUrl: 'https://polygon-rpc.com',
     hex: '0x89'

@@ -1,13 +1,14 @@
 import { CONTRACTS } from '@/config/contracts';
 import { contractFactory } from '@/services/contract.factory';
 import { parseUnits } from 'ethers';
+import { SupportedChainId } from '@/types/chain';
 
 export class TokenContract {
-  private chainId: bigint;
+  private readonly chainId: SupportedChainId;
 
   private config = CONTRACTS.TOKEN;
 
-  constructor(chainId: bigint) {
+  constructor(chainId: SupportedChainId) {
     this.chainId = chainId;
   }
 

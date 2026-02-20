@@ -12,7 +12,7 @@ export type Tx = {
   hash?: string
   nonce?: number
 
-  chainId: bigint
+  chainId: number
   from: string
   to?: string
   value?: string
