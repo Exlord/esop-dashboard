@@ -1,3 +1,5 @@
+import { SupportedChainId } from '@/types/chain';
+
 export type TxStatus =
   | 'awaiting_signature'
   | 'pending'

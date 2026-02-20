@@ -6,6 +6,7 @@ import {
   TX_STUCK_BLOCK_THRESHOLD,
   TX_RECEIPT_STATUS_SUCCESS
 } from '@/consts/tx';
+import { SupportedChainId } from '@/types/chain';
 
 
 
