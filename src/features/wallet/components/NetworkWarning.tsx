@@ -15,7 +15,7 @@ export function NetworkWarning() {
   );
 
   if (isCorrectNetwork) return (
-    <div>Connected to : {chainId}</div>
+    <div>Connected to : <span className="text-green-400 p-2">chain#{chainId}</span></div>
   );
 
   if (!isConnected || isCorrectNetwork) return null;
