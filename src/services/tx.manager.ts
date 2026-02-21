@@ -8,8 +8,6 @@ import {
 } from '@/consts/tx';
 import { SupportedChainId } from '@/types/chain';
 
-
-
 export class TxManager {
   private isListening = false;
 

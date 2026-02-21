@@ -1,4 +1,7 @@
 import './globals.css';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/lib/queryClient';
+import { Providers } from '@/app/Providers';
 
 export default function RootLayout({
   children
@@ -10,7 +13,9 @@ export default function RootLayout({
     <body
       className="min-h-screen bg-gray-50 antialiased"
     >
-    {children}
+    <Providers>
+      {children}
+    </Providers>
     </body>
     </html>
   );

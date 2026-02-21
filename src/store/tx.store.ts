@@ -15,7 +15,7 @@ type TxStore = {
 
 export const useTxStore = create<TxStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       txs: {},
 
       addTx: (tx) =>
@@ -100,13 +100,13 @@ export const useTxStore = create<TxStore>()(
       // 🔥 Versioning for future migrations
       version: 1,
 
-      migrate: (persistedState: any, version) => {
+      migrate: (persistedState: unknown, version) => {
         if (!persistedState) return { txs: {} }
 
         switch (version) {
           case 0:
             return {
-              txs: persistedState.txs ?? {}
+              txs: (persistedState as TxStore).txs ?? {}
             }
 
           case 1:

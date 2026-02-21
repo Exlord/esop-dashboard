@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react"
-import { providerService } from "@/services/provider.service"
+import { useEffect } from 'react'
+import { providerService } from '@/services/provider.service'
+import { useBlockStore } from '@/store/block.store'
 
-export function useBlockNumber() {
-  const [block, setBlock] = useState<number>()
-
+/**
+ * Now Everything Can React to Block Changes
+ */
+export function useBlockSubscription() {
   useEffect(() => {
     const provider = providerService.getReadProvider()
 
-    provider.on("block", setBlock)
+    const handler = (blockNumber: number) => {
+      useBlockStore.getState().setBlock(blockNumber)
+    }
+
+    provider.on('block', handler)
 
     return () => {
-      provider.off("block", setBlock)
+      provider.off('block', handler)
     }
   }, [])
-
-  return block
 }

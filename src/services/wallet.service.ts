@@ -4,6 +4,7 @@ This is the only place we work with window.ethereum.
 
 import { DEFAULT_CHAIN } from '@/config/chains';
 import { EthereumProvider } from '../../global';
+import { SupportedChainId } from '@/types/chain';
 
 export class WalletService {
   private ethereum?: EthereumProvider;
@@ -33,7 +34,7 @@ export class WalletService {
 
     return {
       address: accounts[0],
-      chainId: parseInt(chainId, 16)
+      chainId: parseInt(chainId, 16) as SupportedChainId
     };
   }
 

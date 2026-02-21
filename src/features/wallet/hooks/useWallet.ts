@@ -11,7 +11,8 @@ syncs global state
 import { useEffect } from 'react';
 import { WalletService } from '@/services/wallet.service';
 import { useWalletStore } from '@/store/wallet.store';
-import { providerService } from "@/services/provider.service"
+import { providerService } from '@/services/provider.service';
+import { SupportedChainId } from '@/types/chain';
 
 const walletService = new WalletService();
 
@@ -29,16 +30,14 @@ export function useWallet() {
 
   const connect = async () => {
     try {
-      setConnecting(true)
+      setConnecting(true);
 
       const { address, chainId } =
-        await walletService.connect()
+        await walletService.connect();
 
-      providerService.setWalletProvider(
-        (window as any).ethereum
-      )
+      providerService.setWalletProvider(window.ethereum);
 
-      setWallet({ address, chainId })
+      setWallet({ address, chainId });
     } catch (err) {
       reset();
       throw err;
@@ -61,10 +60,10 @@ export function useWallet() {
     });
 
     walletService.onChainChanged((chainIdHex) => {
-      const newChainId = parseInt(chainIdHex, 16)
+      const newChainId = parseInt(chainIdHex, 16) as SupportedChainId;
 
-      setChain(newChainId)
-    })
+      setChain(newChainId );
+    });
   }, [address, chainId]);
 
   return {
@@ -72,7 +71,7 @@ export function useWallet() {
     chainId,
     isConnected,
     isConnecting,
-
+    isAvailable: walletService.isAvailable(),
     connect
   };
 }
