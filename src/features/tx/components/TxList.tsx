@@ -8,7 +8,7 @@ export function TxList() {
   const txList = useMemo(() => Object.values(txMap), [txMap])
 
   if (!txList.length) {
-    return <p>No transactions yet</p>
+    return <p className="text-red-400">No transactions yet.</p>
   }
 
   return (

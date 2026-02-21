@@ -1,16 +1,24 @@
-"use client"
+'use client';
 
-import { useWallet } from "../hooks/useWallet"
-import { WalletService } from "@/services/wallet.service"
+import { useWallet } from '../hooks/useWallet';
+import { WalletService } from '@/services/wallet.service';
 import { useNetworkGuard } from '@/hooks/useNetworkGuard';
 
-const walletService = new WalletService()
+const walletService = new WalletService();
 
 export function NetworkWarning() {
-  const { isConnected } = useWallet()
-  const { isCorrectNetwork } = useNetworkGuard()
+  const { isConnected } = useWallet();
+  const { isCorrectNetwork, chainId, isReadOnly } = useNetworkGuard();
 
-  if (!isConnected || isCorrectNetwork) return null
+  if (!isConnected) return (
+    <div>Not Connected.</div>
+  );
+
+  if (isCorrectNetwork) return (
+    <div>Connected to : {chainId}</div>
+  );
+
+  if (!isConnected || isCorrectNetwork) return null;
 
   return (
     <div className="p-3 bg-red-500 text-white rounded">
@@ -23,5 +31,5 @@ export function NetworkWarning() {
         Switch Network
       </button>
     </div>
-  )
+  );
 }
